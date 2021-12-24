@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:parangessos_final/utils/constants.dart';
 import 'package:parangessos_final/views/forum_pages/answer_post_page.dart';
 import 'package:parangessos_final/views/forum_pages/categories.dart';
 import 'package:parangessos_final/views/forum_pages/create_post.dart';

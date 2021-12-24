@@ -63,7 +63,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
               size: size,
               urlImage: urlImage,
               pseudo: pseudo,
-              onClicked: () => context.router.push(LoginRoute(title: 'Se connecter', key: widget.key, context: widget.context)),
+              onClicked: () => context.router.push(LoginRoute(title: 'Se connecter', key: widget.key)),
             ),
             Container(
               padding:  padding,
@@ -187,7 +187,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
                           'Switch to Dark/light Mode',
                           style: TextStyle(
@@ -196,7 +196,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: ChangeSwitchTheme(),
                       ),
                     ],
@@ -218,7 +218,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   }) => InkWell(
     onTap: onClicked,
     child: Container(
-      padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
+      padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
       child: Row(
         children: [
           CircleAvatar(
@@ -227,7 +227,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
           ),
           SizedBox(width: size.width * 0.01,),
           Text(pseudo),
-          Spacer(),
+          const Spacer(),
           CircleAvatar(
             radius: 24,
             child: Icon(
@@ -266,10 +266,10 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
     Navigator.of(context).pop();
     switch (index) {
       case 0:
-        context.router.push(LoginRoute(title: 'Se connecter', key: widget.key, context: widget.context));
+        context.router.push(LoginRoute(title: 'Se connecter', key: widget.key));
         break;
       case 1:
-        context.router.push(RegisterRoute(title: 'Créer un compte', key: widget.key, context: widget.context));
+        context.router.push(RegisterRoute(title: 'Créer un compte', key: widget.key));
         break;
       case 2:
         context.router.push(HomeRoute(title: 'Accueil', key: widget.key));
@@ -296,37 +296,51 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   changeVisibility1() {
     if(widget.title != 'Login' && user == null) {
         return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility2() {
     if(widget.title != 'Create Account' && user == null){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility3() {
     if(widget.title != 'Home'){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility4() {
     if(widget.title != 'Articles' && user != null){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility5() {
     if(widget.title != 'Forum' && user != null){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility6() {
     if(widget.title != 'Useful Resources' && user != null){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
   changeVisibility7() {
     if(user != null){
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
 }
 

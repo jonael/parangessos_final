@@ -1,8 +1,10 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:parangessos_final/controllers/login_controller.dart';
 
 import '../../controllers/api.dart';
 import '../../provider/navigation_drawer.dart';
+import '../../provider/router.dart';
 import '../../utils/constants.dart';
 import '../home_page.dart';
 import 'register.dart';
@@ -56,6 +58,18 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: size.height * 0.03),
               LoginController(size: size, context: context),
+              SizedBox(height: size.height * 0.03),
+              TextButton(
+                onPressed: () => context.router.push(RegisterRoute(title: 'Créer un compte', key: widget.key)),
+                child: const Text(
+                  "J'ai déjà un compte",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
               SizedBox(height: size.height * 0.05),
             ]
         ),

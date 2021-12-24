@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
       );
     } else {
       return Scaffold(
-        drawer: NavigationDrawerWidget(title: widget.title, context: context),
+        drawer: NavigationDrawerWidget(title: widget.title, context: context,),
         appBar: AppBar(
           centerTitle: true,
           title: Text(

@@ -1,6 +1,7 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:universal_platform/universal_platform.dart';
 import '../provider/router.dart';
 import '../utils/constants.dart';
@@ -53,11 +54,11 @@ class RegisterControllerState extends State<RegisterController> {
   Widget build(BuildContext context) {
     double multiplicator;
     if (UniversalPlatform.isAndroid) {
-      multiplicator = 1.5;
+      multiplicator = 1.2;
     } else if(UniversalPlatform.isIOS){
-      multiplicator = 1.5;
+      multiplicator = 1.2;
     } else {
-      multiplicator = 3;
+      multiplicator = 2;
     }
     return Form(
       key: _formKey,
@@ -220,16 +221,26 @@ class RegisterControllerState extends State<RegisterController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: ElevatedButton(
+                  child: NeumorphicButton(
+                    margin: const EdgeInsets.all(10.0),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Connexion en cours')),
-                        );
-                        registerFromApi(pseudoController.text, passwordController.text, mailController.text);
-                      }
+                      String pseudo = pseudoController.text.toString();
+                      String password = passwordController.text.toString();
+                      String mail = mailController.text.toString();
+                      registerFromApi(pseudo, password, mail);
                     },
-                    child: const Text('Valider'),
+                    style: NeumorphicStyle(
+                        shape: NeumorphicShape.concave,
+                        color: Colors.black.withOpacity(0.1),
+                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(15))
+                    ),
+                    child: const Text(
+                      "Valider",
+                      style: TextStyle(
+                        fontWeight:  FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
                   ),
                 ),
               ],

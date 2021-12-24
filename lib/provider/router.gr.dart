@@ -16,86 +16,70 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
-      final args = routeData.argsAs<HomeRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: HomePage(key: args.key, title: args.title));
+          child: HomePage(title: 'Accueil',));
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: LoginPage(key: args.key, title: args.title));
+          child: LoginPage(title: 'Login'));
     },
     RegisterRoute.name: (routeData) {
-      final args = routeData.argsAs<RegisterRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: RegisterPage(key: args.key, title: args.title));
+          child: const RegisterPage(title: 'Register'));
     },
     ProfilRoute.name: (routeData) {
-      final args = routeData.argsAs<ProfilRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
           child: ProfilPage(
-              key: args.key,
-              title: args.title,
-              pseudo: args.pseudo,
-              urlImage: args.urlImage));
+              title: 'Profil', urlImage: userLog!.photoUrl!, pseudo: userLog!.pseudo,));
     },
     ForumRoute.name: (routeData) {
-      final args = routeData.argsAs<ForumRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ForumPage(key: args.key, title: args.title));
+          child: ForumPage(title: 'Forum'));
     },
     ArticlesRoute.name: (routeData) {
-      final args = routeData.argsAs<ArticlesRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ArticlesPage(key: args.key, title: args.title));
+          child: const ArticlesPage(title: 'Articles'));
     },
     ArticleRoute.name: (routeData) {
-      final args = routeData.argsAs<ArticleRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ArticlePage(key: args.key, title: args.title));
+          child: const ArticlePage(title: 'Article'));
     },
     PostsRoute.name: (routeData) {
-      final args = routeData.argsAs<PostsRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: PostsPage(key: args.key, title: args.title));
+          child: const PostsPage(title: 'Posts'));
     },
     PostRoute.name: (routeData) {
-      final args = routeData.argsAs<PostRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: PostPage(key: args.key, title: args.title));
+          child: const PostPage(title: 'Post'));
     },
     CreatePostRoute.name: (routeData) {
-      final args = routeData.argsAs<CreatePostRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: CreatePostPage(key: args.key, title: args.title));
+          child: const CreatePostPage(title: 'Créer un post'));
     },
     CategoriesRoute.name: (routeData) {
-      final args = routeData.argsAs<CategoriesRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: CategoriesPage(key: args.key, title: args.title));
+          child: const CategoriesPage(title: 'Posts'));
     },
     AnswerPostRoute.name: (routeData) {
-      final args = routeData.argsAs<AnswerPostRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: AnswerPostPage(key: args.key, title: args.title));
+          child: const AnswerPostPage(title: 'Rédiger une réponse'));
     },
     UsefulRessourcesRoute.name: (routeData) {
-      final args = routeData.argsAs<UsefulRessourcesRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: UsefulRessourcesPage(key: args.key, title: args.title));
+          child: const UsefulRessourcesPage(title: 'Ressources Utiles',));
     }
   };
 
@@ -119,320 +103,136 @@ class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [HomePage]
-class HomeRoute extends PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({Key? key, required String title})
+class HomeRoute extends PageRouteInfo {
+  const HomeRoute({Key? key, required String title})
       : super(HomeRoute.name,
-            path: '/', args: HomeRouteArgs(key: key, title: title));
+            path: '/', );
 
   static const String name = 'HomeRoute';
 }
 
-class HomeRouteArgs {
-  const HomeRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'HomeRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [LoginPage]
-class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({Key? key, required String title, required BuildContext context})
+class LoginRoute extends PageRouteInfo {
+  LoginRoute({Key? key, required String title})
       : super(LoginRoute.name,
-            path: '/login-page', args: LoginRouteArgs(key: key, title: title));
+            path: '/login-page',);
 
   static const String name = 'LoginRoute';
 }
 
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key, title: $title}';
-  }
-}
 
 /// generated route for
 /// [RegisterPage]
-class RegisterRoute extends PageRouteInfo<RegisterRouteArgs> {
-  RegisterRoute({Key? key, required String title, required BuildContext context})
+class RegisterRoute extends PageRouteInfo {
+  const RegisterRoute({Key? key, required String title})
       : super(RegisterRoute.name,
-            path: '/register-page',
-            args: RegisterRouteArgs(key: key, title: title));
+            path: '/register-page',);
 
   static const String name = 'RegisterRoute';
 }
 
-class RegisterRouteArgs {
-  const RegisterRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'RegisterRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [ProfilPage]
-class ProfilRoute extends PageRouteInfo<ProfilRouteArgs> {
-  ProfilRoute(
+class ProfilRoute extends PageRouteInfo {
+  const ProfilRoute(
       {Key? key,
       required String title,
       required String pseudo,
       required String urlImage})
       : super(ProfilRoute.name,
-            path: '/profil-page',
-            args: ProfilRouteArgs(
-                key: key, title: title, pseudo: pseudo, urlImage: urlImage));
+            path: '/profil-page',);
 
   static const String name = 'ProfilRoute';
 }
 
-class ProfilRouteArgs {
-  const ProfilRouteArgs(
-      {this.key,
-      required this.title,
-      required this.pseudo,
-      required this.urlImage});
-
-  final Key? key;
-
-  final String title;
-
-  final String pseudo;
-
-  final String urlImage;
-
-  @override
-  String toString() {
-    return 'ProfilRouteArgs{key: $key, title: $title, pseudo: $pseudo, urlImage: $urlImage}';
-  }
-}
-
 /// generated route for
 /// [ForumPage]
-class ForumRoute extends PageRouteInfo<ForumRouteArgs> {
-  ForumRoute({Key? key, required String title})
+class ForumRoute extends PageRouteInfo {
+  const ForumRoute({Key? key, required String title})
       : super(ForumRoute.name,
-            path: '/forum-page', args: ForumRouteArgs(key: key, title: title));
+            path: '/forum-page',);
 
   static const String name = 'ForumRoute';
 }
 
-class ForumRouteArgs {
-  const ForumRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'ForumRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [ArticlesPage]
-class ArticlesRoute extends PageRouteInfo<ArticlesRouteArgs> {
-  ArticlesRoute({Key? key, required String title})
+class ArticlesRoute extends PageRouteInfo {
+  const ArticlesRoute({Key? key, required String title})
       : super(ArticlesRoute.name,
-            path: '/articles-page',
-            args: ArticlesRouteArgs(key: key, title: title));
+            path: '/articles-page',);
 
   static const String name = 'ArticlesRoute';
 }
 
-class ArticlesRouteArgs {
-  const ArticlesRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'ArticlesRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [ArticlePage]
-class ArticleRoute extends PageRouteInfo<ArticleRouteArgs> {
-  ArticleRoute({Key? key, required String title})
+class ArticleRoute extends PageRouteInfo {
+  const ArticleRoute({Key? key, required String title})
       : super(ArticleRoute.name,
-            path: '/article-page',
-            args: ArticleRouteArgs(key: key, title: title));
+            path: '/article-page',);
 
   static const String name = 'ArticleRoute';
 }
 
-class ArticleRouteArgs {
-  const ArticleRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'ArticleRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [PostsPage]
-class PostsRoute extends PageRouteInfo<PostsRouteArgs> {
-  PostsRoute({Key? key, required String title})
+class PostsRoute extends PageRouteInfo {
+  const PostsRoute({Key? key, required String title})
       : super(PostsRoute.name,
-            path: '/posts-page', args: PostsRouteArgs(key: key, title: title));
+            path: '/posts-page',);
 
   static const String name = 'PostsRoute';
 }
 
-class PostsRouteArgs {
-  const PostsRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'PostsRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [PostPage]
-class PostRoute extends PageRouteInfo<PostRouteArgs> {
-  PostRoute({Key? key, required String title})
+class PostRoute extends PageRouteInfo {
+  const PostRoute({Key? key, required String title})
       : super(PostRoute.name,
-            path: '/post-page', args: PostRouteArgs(key: key, title: title));
+            path: '/post-page',);
 
   static const String name = 'PostRoute';
 }
 
-class PostRouteArgs {
-  const PostRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'PostRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [CreatePostPage]
-class CreatePostRoute extends PageRouteInfo<CreatePostRouteArgs> {
-  CreatePostRoute({Key? key, required String title})
+class CreatePostRoute extends PageRouteInfo {
+  const CreatePostRoute({Key? key, required String title})
       : super(CreatePostRoute.name,
-            path: '/create-post-page',
-            args: CreatePostRouteArgs(key: key, title: title));
+            path: '/create-post-page',);
 
   static const String name = 'CreatePostRoute';
 }
 
-class CreatePostRouteArgs {
-  const CreatePostRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'CreatePostRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [CategoriesPage]
-class CategoriesRoute extends PageRouteInfo<CategoriesRouteArgs> {
-  CategoriesRoute({Key? key, required String title})
+class CategoriesRoute extends PageRouteInfo {
+  const CategoriesRoute({Key? key, required String title})
       : super(CategoriesRoute.name,
-            path: '/categories-page',
-            args: CategoriesRouteArgs(key: key, title: title));
+            path: '/categories-page',);
 
   static const String name = 'CategoriesRoute';
 }
 
-class CategoriesRouteArgs {
-  const CategoriesRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'CategoriesRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [AnswerPostPage]
-class AnswerPostRoute extends PageRouteInfo<AnswerPostRouteArgs> {
-  AnswerPostRoute({Key? key, required String title})
+class AnswerPostRoute extends PageRouteInfo {
+  const AnswerPostRoute({Key? key, required String title})
       : super(AnswerPostRoute.name,
-            path: '/answer-post-page',
-            args: AnswerPostRouteArgs(key: key, title: title));
+            path: '/answer-post-page',);
 
   static const String name = 'AnswerPostRoute';
 }
 
-class AnswerPostRouteArgs {
-  const AnswerPostRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'AnswerPostRouteArgs{key: $key, title: $title}';
-  }
-}
-
 /// generated route for
 /// [UsefulRessourcesPage]
-class UsefulRessourcesRoute extends PageRouteInfo<UsefulRessourcesRouteArgs> {
-  UsefulRessourcesRoute({Key? key, required String title})
+class UsefulRessourcesRoute extends PageRouteInfo {
+  const UsefulRessourcesRoute({Key? key, required String title})
       : super(UsefulRessourcesRoute.name,
-            path: '/useful-ressources-page',
-            args: UsefulRessourcesRouteArgs(key: key, title: title));
+            path: '/useful-ressources-page',);
 
   static const String name = 'UsefulRessourcesRoute';
 }
 
-class UsefulRessourcesRouteArgs {
-  const UsefulRessourcesRouteArgs({this.key, required this.title});
-
-  final Key? key;
-
-  final String title;
-
-  @override
-  String toString() {
-    return 'UsefulRessourcesRouteArgs{key: $key, title: $title}';
-  }
-}
