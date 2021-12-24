@@ -10,9 +10,9 @@ class Api {
   static Future login(String pseudo, String password) async {
     String url = '';
     if(UniversalPlatform.isAndroid){
-      url = "http://10.0.2.2:3000/login";
+      url = "http://10.0.2.2/login";
     }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost:3000/login";
+      url = "http://localhost/login";
     }
     Map<String, String> headers = {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work

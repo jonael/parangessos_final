@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
       children: <Widget>[
         image(size),
         SizedBox(height: size.height * 0.02),
-        text(),
+        text(context),
       ],
     );
   }
@@ -29,21 +29,18 @@ class Header extends StatelessWidget {
       width: size.width * 0.8,
     );
   }
-  Widget text() {
+  Widget text(BuildContext context) {
     if (UniversalPlatform.isIOS){
-      return new DefaultTextStyle(
-          style: new TextStyle(
+      return const DefaultTextStyle(
+          style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
-          child: new Text("Quand le rêve devient tragédie"));
+          child: Text("Quand le rêve devient tragédie"));
     } else {
       return Text(
         "Quand le rêve devient tragédie",
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-        ),
+        style: Theme.of(context).textTheme.headline4,
       );
     }
   }

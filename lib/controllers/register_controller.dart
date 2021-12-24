@@ -68,7 +68,7 @@ class RegisterControllerState extends State<RegisterController> {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 width: 3,
               ),
               borderRadius: BorderRadius.circular(15),

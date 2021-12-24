@@ -219,21 +219,28 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
     onTap: onClicked,
     child: Container(
       padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
-      child: Row(
+      child: Column(
         children: [
-          CircleAvatar(
-            radius: 35,
-            backgroundImage: NetworkImage(urlImage),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Theme.of(context).backgroundColor,
+                radius: 35,
+                foregroundImage: NetworkImage(urlImage),
+              ),
+              SizedBox(width: size.width * 0.01,),
+              Text(
+                pseudo,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ],
           ),
-          SizedBox(width: size.width * 0.01,),
-          Text(pseudo),
-          const Spacer(),
-          CircleAvatar(
-            radius: 24,
-            child: Icon(
-              Icons.edit,
-              color: Theme.of(context).iconTheme.color,
-            ),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          Text(
+            'Cliquez sur la photo pour modifier votre profil',
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),
@@ -294,21 +301,21 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   }
 
   changeVisibility1() {
-    if(widget.title != 'Login' && user == null) {
+    if(widget.title != 'Se connecter' && user == null) {
         return true;
     } else {
       return false;
     }
   }
   changeVisibility2() {
-    if(widget.title != 'Create Account' && user == null){
+    if(widget.title != 'Créer un compte' && user == null){
       return true;
     } else {
       return false;
     }
   }
   changeVisibility3() {
-    if(widget.title != 'Home'){
+    if(widget.title != 'Accueil'){
       return true;
     } else {
       return false;
@@ -329,7 +336,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
     }
   }
   changeVisibility6() {
-    if(widget.title != 'Useful Resources' && user != null){
+    if(widget.title != 'Ressources utiles' && user != null){
       return true;
     } else {
       return false;

@@ -18,17 +18,17 @@ class _$AppRouter extends RootStackRouter {
     HomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: HomePage(title: 'Accueil',));
+          child: const HomePage(title: 'Accueil',));
     },
     LoginRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: LoginPage(title: 'Login'));
+          child: LoginPage(title: 'Se connecter'));
     },
     RegisterRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: const RegisterPage(title: 'Register'));
+          child: const RegisterPage(title: 'Créer un compte'));
     },
     ProfilRoute.name: (routeData) {
       return MaterialPageX<dynamic>(

@@ -1,4 +1,5 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:parangessos_final/controllers/register_controller.dart';
 import '../../provider/navigation_drawer.dart';
@@ -28,40 +29,42 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget body() {
     Size size = MediaQuery.of(context).size;
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 10.0, left : 10.0, right : 10.0),
-        child: Column(
-            children: <Widget> [
-              SizedBox(height: size.height * 0.02),
-              NeumorphicText(
-                widget.title,
-                style: const NeumorphicStyle(
-                  depth: 10,
-                ),
-                textStyle: NeumorphicTextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 30.0
-                ),
-              ),
-              SizedBox(height: size.height * 0.03),
-              RegisterController(size: size, context: context),
-              SizedBox(height: size.height * 0.03),
-              TextButton(
-                onPressed: () => context.router.push(LoginRoute(title: 'Se connecter', key: widget.key)),
-                child: const Text(
-                  "Je n'ai pas de compte",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 16.0,
+    return Stack(
+      children: [
+        Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 10.0, left : 10.0, right : 10.0),
+            child: Column(
+                children: <Widget> [
+                  SizedBox(height: size.height * 0.03),
+                  RegisterController(size: size, context: context),
+                  SizedBox(height: size.height * 0.03),
+                  TextButton(
+                    onPressed: () => context.router.push(LoginRoute(title: 'Se connecter', key: widget.key)),
+                    child: const Text(
+                      "Je n'ai pas de compte",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 16.0,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: size.height * 0.05),
-            ]
+                  SizedBox(height: size.height * 0.05),
+                ]
+            ),
+          ),
         ),
-      ),
+        DraggableFab(
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColorLight,
+            onPressed: (){print('clic');},
+            child: const Icon(
+              Icons.warning,
+            ),
+          ),
+        ),
+      ]
     );
   }
 }
