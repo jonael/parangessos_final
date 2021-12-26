@@ -6,25 +6,23 @@ import '../models/profil/user.dart';
 import '../utils/constants.dart';
 
 class Api {
-
   static Future login(String pseudo, String password) async {
     String url = '';
     if(UniversalPlatform.isAndroid){
-      url = "http://10.0.2.2/login";
+      url = "http://10.0.2.2/paranges-sos/api/login.php";
     }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost/login";
+      url = "http://localhost/paranges-sos/api/login.php";
     }
-    Map<String, String> headers = {
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-    };
     try {
       final response = await http.post(
           Uri.parse(url),
-          headers: headers,
-          body: {
+          headers: {
+            "content-type": "application/json"
+          },
+          body: jsonEncode({
             "pseudo": pseudo,
             "password": password
-          },
+          }),
       );
       print(response.body);
       print(response.statusCode);
@@ -32,7 +30,7 @@ class Api {
         print(response);
         var test = jsonDecode(response.body);
         print(test);
-        userLog = User.fromJson(test[0]);
+        userLog = Userbean.fromJson(test[0]);
         print(userLog);
         return true;
       } else {
@@ -55,13 +53,12 @@ class Api {
     }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
       url = "http://localhost:3000/register";
     }
-    Map<String, String> headers = {
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-    };
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: headers,
+        headers: {
+          "content-type": "application/json"
+        },
         body: {
           "pseudo": pseudo,
           "password": password,
@@ -71,7 +68,7 @@ class Api {
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
         print(test);
-        userLog = User.fromJson(test[0]);
+        userLog = Userbean.fromJson(test[0]);
         return true;
       } else {
         print(response.body);

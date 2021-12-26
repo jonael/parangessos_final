@@ -1,12 +1,14 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:draggable_fab/draggable_fab.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:parangessos_final/controllers/login_controller.dart';
+import 'package:universal_platform/universal_platform.dart';
 import '../../provider/navigation_drawer.dart';
 import '../../provider/router.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key, required this.title}) : super(key: key);
+  const LoginPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -17,17 +19,46 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavigationDrawerWidget(title: widget.title, context: context,),
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: body(),
-    );
+    if (UniversalPlatform.isIOS){
+      return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            leading: GestureDetector(
+              onTap: (){
+                NavigationDrawerWidget(title: widget.title, context: context,);
+              },
+              child: const Icon(
+                CupertinoIcons.bars,
+              ),
+            ),
+            middle: DefaultTextStyle(
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+              child: Text(widget.title),
+            ),
+          ),
+          child: body(context)
+      );
+    } else {
+      return Scaffold(
+        drawer: NavigationDrawerWidget(title: widget.title, context: context,),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        body: body(context),
+      );
+    }
   }
 
-  Widget body() {
+  Widget body(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [

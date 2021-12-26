@@ -2,26 +2,19 @@ import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../../provider/navigation_drawer.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-class ProfilPage extends StatefulWidget {
-  const ProfilPage({
-    Key? key,
-    required this.title,
-    required this.pseudo,
-    required this.urlImage
-  }) : super(key: key);
+import '../../provider/navigation_drawer.dart';
 
-  final String pseudo;
-  final String urlImage;
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _ProfilPageState createState() => _ProfilPageState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _ProfilPageState extends State<ProfilPage>{
+class _SettingsPageState extends State<SettingsPage>{
 
   bool isChecked1 = false;
   bool isChecked2 = false;
@@ -92,7 +85,7 @@ class _ProfilPageState extends State<ProfilPage>{
                 child: SizedBox(
                   width: size.width * 0.5,
                   child: Image.network(
-                    widget.urlImage,
+                    "",
                     fit: BoxFit.fill,
                   ),
                 ),

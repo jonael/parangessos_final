@@ -15,6 +15,7 @@ import '../views/home_page.dart';
 import '../views/profil_pages/login.dart';
 import '../views/profil_pages/profil.dart';
 import '../views/profil_pages/register.dart';
+import '../views/profil_pages/settings.dart';
 
 
 part 'router.gr.dart';
@@ -26,6 +27,7 @@ part 'router.gr.dart';
     AutoRoute(page: LoginPage),
     AutoRoute(page: RegisterPage),
     AutoRoute(page: ProfilPage),
+    AutoRoute(page: SettingsPage),
     AutoRoute(page: ForumPage),
     AutoRoute(page: ArticlesPage),
     AutoRoute(page: ArticlePage),

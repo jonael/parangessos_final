@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
           navigationBar: CupertinoNavigationBar(
             leading: GestureDetector(
               onTap: (){
-
+                NavigationDrawerWidget(title: widget.title, context: context,);
               },
               child: const Icon(
                 CupertinoIcons.bars,

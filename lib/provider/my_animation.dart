@@ -59,10 +59,11 @@ class RainBehaviour extends Behaviour {
   /// Sets the number of lines in the background.
   set numLines(value) {
     if (isInitialized) {
-      if (value > lines!.length)
+      if (value > lines!.length) {
         lines!.addAll(generateLines(value - lines!.length));
-      else if (value < lines!.length)
+      } else if (value < lines!.length) {
         lines!.removeRange(0, lines!.length - value as int);
+      }
     }
     _numLines = value;
   }
@@ -120,7 +121,7 @@ class RainBehaviour extends Behaviour {
   void initFrom(Behaviour oldBehaviour) {
     if (oldBehaviour is RainBehaviour) {
       lines = oldBehaviour.lines;
-      numLines = this._numLines; // causes the lines to update
+      numLines = _numLines; // causes the lines to update
     }
   }
 
@@ -166,8 +167,9 @@ class RainBehaviour extends Behaviour {
             line.position!.translate(delta * line.speed * sign, 0.0);
         if ((direction == LineDirection.Ltr &&
             line.position!.dx > size!.width) ||
-            (direction == LineDirection.Rtl && line.position!.dx < 0))
+            (direction == LineDirection.Rtl && line.position!.dx < 0)) {
           initLine(line);
+        }
       }
     } else {
       for (var line in lines!) {
@@ -175,8 +177,9 @@ class RainBehaviour extends Behaviour {
             line.position!.translate(0.0, delta * line.speed * sign);
         if ((direction == LineDirection.Ttb &&
             line.position!.dy > size!.height) ||
-            (direction == LineDirection.Btt && line.position!.dy < 0))
+            (direction == LineDirection.Btt && line.position!.dy < 0)) {
           initLine(line);
+        }
       }
     }
     return true;
@@ -195,7 +198,7 @@ class AnimatedBackground extends RenderObjectWidget {
   final Behaviour behaviour;
 
   /// Creates a new animated background with the provided arguments
-  AnimatedBackground({
+  const AnimatedBackground({
     Key? key,
     required this.child,
     required this.vsync,
@@ -211,7 +214,7 @@ class AnimatedBackground extends RenderObjectWidget {
   @override
   void updateRenderObject(
       BuildContext context, RenderAnimatedBackground renderObject) {
-    renderObject..behaviour = behaviour;
+    renderObject.behaviour = behaviour;
   }
 
   @override
@@ -346,7 +349,7 @@ class _AnimatedBackgroundElement extends RenderObjectElement {
 /// An animated background in the render tree.
 class RenderAnimatedBackground extends RenderProxyBox {
   int _lastTimeMs = 0;
-  TickerProvider _vsync;
+  final TickerProvider _vsync;
   late Ticker _ticker;
 
   Behaviour _behaviour;

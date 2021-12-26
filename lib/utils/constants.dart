@@ -1,4 +1,4 @@
 import '../models/profil/user.dart';
 
-User? userLog;
+Userbean? userLog;
 String errorLog = "";

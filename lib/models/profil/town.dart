@@ -1,23 +1,31 @@
-class Town {
-    String idTown;
-    String townCp;
-    String townName;
-
-    Town({required this.idTown, required this.townCp, required this.townName});
-
-    factory Town.fromJson(Map<String, dynamic> json) {
-        return Town(
-            idTown: json['idTown'],
-            townCp: json['townCp'],
-            townName: json['townName'],
-        );
+class Townbean {
+    Townbean({
+        int? idTown,
+        String? townName,
+        String? townCp,}){
+        _idTown = idTown;
+        _townName = townName;
+        _townCp = townCp;
     }
 
+    Townbean.fromJson(dynamic json) {
+        _idTown = json['idTown'];
+        _townName = json['townName'];
+        _townCp = json['townCp'];
+    }
+    int? _idTown;
+    String? _townName;
+    String? _townCp;
+
+    int? get idTown => _idTown;
+    String? get townName => _townName;
+    String? get townCp => _townCp;
+
     Map<String, dynamic> toJson() {
-        final Map<String, dynamic> data = new Map<String, dynamic>();
-        data['idTown'] = this.idTown;
-        data['townCp'] = this.townCp;
-        data['townName'] = this.townName;
-        return data;
+        final map = <String, dynamic>{};
+        map['idTown'] = _idTown;
+        map['townName'] = _townName;
+        map['townCp'] = _townCp;
+        return map;
     }
 }

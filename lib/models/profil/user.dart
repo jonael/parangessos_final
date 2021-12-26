@@ -1,81 +1,105 @@
-class User {
-    String? _idSession;
-    String _pseudo = '';
-    String? _mail;
-    String? _photoUrl;
-    String? _firstName;
-    String? _name;
-    String? _phone;
-    int? _age;
-    String? _since;
-    int? _voluntary;
-    int? _idTown;
+import 'package:parangessos_final/models/profil/role.dart';
+import 'package:parangessos_final/models/profil/town.dart';
+import 'package:parangessos_final/models/profil/voluntary.dart';
 
-    String? get idSession => _idSession;
-    String get pseudo => _pseudo;
-    String? get mail => _mail;
-    String? get photoUrl => _photoUrl;
-    String? get firstName => _firstName;
-    String? get name => _name;
-    String? get phone => _phone;
-    int? get age => _age;
-    String? get since => _since;
-    int? get voluntary => _voluntary;
-    int? get idTown => _idTown;
-
-    User({
-        String? idSession,
-        required String pseudo,
+class Userbean {
+    Userbean({
+        int? idUser,
+        String? pseudo,
         String? mail,
         String? photoUrl,
         String? firstName,
         String? name,
-        String? phone,
         int? age,
+        String? phone,
         String? since,
-        int? voluntary,
-        int? idTown}){
-        _idSession = idSession;
-        _pseudo = this.pseudo;
+        Townbean? town,
+        List<Rolebean>? roles,
+        List<Voluntarybean>? voluntary,}){
+        _idUser = idUser;
+        _pseudo = pseudo;
         _mail = mail;
         _photoUrl = photoUrl;
         _firstName = firstName;
         _name = name;
-        _phone = phone;
         _age = age;
+        _phone = phone;
         _since = since;
+        _town = town;
+        _roles = roles;
         _voluntary = voluntary;
-        _idTown = idTown;
     }
 
-    User.fromJson(dynamic json) {
-        _idSession = json["idSession"];
-        _pseudo = json["pseudo"];
-        _mail = json["mail"];
-        _photoUrl = json["photoUrl"];
-        _firstName = json["firstName"];
-        _name = json["name"];
-        _phone = json["phone"];
-        _age = json["age"];
-        _since = json["since"];
-        _voluntary = json["voluntary"];
-        _idTown = json["idTown"];
+    Userbean.fromJson(dynamic json) {
+        _idUser = json['idUser'];
+        _pseudo = json['pseudo'];
+        _mail = json['mail'];
+        _photoUrl = json['photoUrl'];
+        _firstName = json['firstName'];
+        _name = json['name'];
+        _age = json['age'];
+        _phone = json['phone'];
+        _since = json['since'];
+        _town = json['town'] != null ? Townbean.fromJson(json['town']) : null;
+        if (json['roles'] != null) {
+            _roles = [];
+            json['roles'].forEach((v) {
+                _roles?.add(Rolebean.fromJson(v));
+            });
+        }
+        if (json['voluntary'] != null) {
+            _voluntary = [];
+            json['voluntary'].forEach((v) {
+                _voluntary?.add(Voluntarybean.fromJson(v));
+            });
+        }
     }
+    int? _idUser;
+    String? _pseudo;
+    String? _mail;
+    String? _photoUrl;
+    String? _firstName;
+    String? _name;
+    int? _age;
+    String? _phone;
+    String? _since;
+    Townbean? _town;
+    List<Rolebean>? _roles;
+    List<Voluntarybean>? _voluntary;
+
+    int? get idUser => _idUser;
+    String? get pseudo => _pseudo;
+    String? get mail => _mail;
+    String? get photoUrl => _photoUrl;
+    String? get firstName => _firstName;
+    String? get name => _name;
+    int? get age => _age;
+    String? get phone => _phone;
+    String? get since => _since;
+    Townbean? get town => _town;
+    List<Rolebean>? get roles => _roles;
+    List<Voluntarybean>? get voluntary => _voluntary;
 
     Map<String, dynamic> toJson() {
-        var map = <String, dynamic>{};
-        map["idSession"] = _idSession;
-        map["pseudo"] = _pseudo;
-        map["mail"] = _mail;
-        map["photoUrl"] = _photoUrl;
-        map["firstName"] = _firstName;
-        map["name"] = _name;
-        map["phone"] = _phone;
-        map["age"] = _age;
-        map["since"] = _since;
-        map["voluntary"] = _voluntary;
-        map["idTown"] = _idTown;
+        final map = <String, dynamic>{};
+        map['idUser'] = _idUser;
+        map['pseudo'] = _pseudo;
+        map['mail'] = _mail;
+        map['photoUrl'] = _photoUrl;
+        map['firstName'] = _firstName;
+        map['name'] = _name;
+        map['age'] = _age;
+        map['phone'] = _phone;
+        map['since'] = _since;
+        if (_town != null) {
+            map['town'] = _town?.toJson();
+        }
+        if (_roles != null) {
+            map['roles'] = _roles?.map((v) => v.toJson()).toList();
+        }
+        if (_voluntary != null) {
+            map['voluntary'] = _voluntary?.map((v) => v.toJson()).toList();
+        }
         return map;
     }
-
 }

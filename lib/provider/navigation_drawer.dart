@@ -22,7 +22,7 @@ class NavigationDrawerWidget extends StatefulWidget {
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
 
   final padding = const EdgeInsets.symmetric(horizontal: 20);
-  User? user;
+  Userbean? user;
   bool isEnabled = true;
   bool isChecked = false;
   late Image image;
@@ -32,7 +32,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     user = userLog;
-    String pseudo;
+    String? pseudo;
     String urlImage;
     if (Provider.of<ThemeProvider>(context).isDarkMode){
       isChecked = true;
@@ -40,13 +40,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
       isChecked = false;
     }
     if (user == null){
-      pseudo = 'Visitor';
+      pseudo = 'visiteur';
       urlImage = 'assets/images/logo_ailes_1080.png';
     } else {
-      if (user!.pseudo.isNotEmpty){
+      if (user!.pseudo!.isNotEmpty){
         pseudo = user!.pseudo;
       } else {
-        pseudo = 'Visitor';
+        pseudo = 'visiteur';
       }
       if (user!.photoUrl != null || user!.photoUrl!.isNotEmpty) {
         urlImage = user!.photoUrl!;
@@ -62,8 +62,15 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
             buildHeader(
               size: size,
               urlImage: urlImage,
-              pseudo: pseudo,
-              onClicked: () => context.router.push(LoginRoute(title: 'Se connecter', key: widget.key)),
+              pseudo: pseudo!,
+              onClicked: () => context.router.push(
+                  ProfilRoute(
+                      title: 'Mon profil',
+                      key: widget.key,
+                      urlImage: urlImage,
+                      pseudo: pseudo!,
+                  ),
+              ),
             ),
             Container(
               padding:  padding,
@@ -84,7 +91,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Visibility(
                     visible: changeVisibility1(),
                     child: buildMenuItem(
-                      text: 'Login',
+                      text: 'Se connecter',
                       icon: Icons.login,
                       onClicked: () => selectedItem(widget.context, 0),
                     ),
@@ -98,7 +105,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Visibility(
                     visible: changeVisibility2(),
                     child: buildMenuItem(
-                      text: 'Create Account',
+                      text: 'Créer un compte',
                       icon: Icons.app_registration,
                       onClicked: () => selectedItem(widget.context, 1),
                     ),
@@ -112,7 +119,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Visibility(
                     visible: changeVisibility3(),
                     child: buildMenuItem(
-                      text: 'Home',
+                      text: 'Accueil',
                       icon: Icons.home,
                       onClicked: () => selectedItem(widget.context, 2),
                     ),
@@ -154,7 +161,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Visibility(
                     visible: changeVisibility6(),
                     child: buildMenuItem(
-                      text: 'Useful Resources',
+                      text: 'Ressources utiles',
                       icon: Icons.list,
                       onClicked: () => selectedItem(widget.context, 5),
                     ),
@@ -172,7 +179,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   Visibility(
                     visible: changeVisibility7(),
                     child: buildMenuItem(
-                      text: 'Log Off',
+                      text: 'Se déconnecter',
                       icon: Icons.logout,
                       onClicked: () => selectedItem(widget.context, 6),
                     ),
@@ -181,7 +188,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                   buildMenuItem(
                     text: 'Settings',
                     icon: Icons.settings,
-                    onClicked: () => selectedItem(widget.context, 7),
+                    onClicked: () => context.router.push(SettingsRoute(title: 'Settings', key: widget.key))
                   ),
                   SizedBox(height: size.height * 0.02),
                   Row(
@@ -197,7 +204,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: ChangeSwitchTheme(),
+                        child: const ChangeSwitchTheme(),
                       ),
                     ],
                   ),
@@ -230,8 +237,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
               ),
               SizedBox(width: size.width * 0.01,),
               Text(
-                pseudo,
-                style: Theme.of(context).textTheme.headline5,
+                "Bonjour  $pseudo",
+                style: Theme.of(context).textTheme.headline6,
               ),
             ],
           ),
