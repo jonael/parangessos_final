@@ -184,11 +184,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
                       onClicked: () => selectedItem(widget.context, 6),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.02),
-                  buildMenuItem(
-                    text: 'Settings',
-                    icon: Icons.settings,
-                    onClicked: () => context.router.push(SettingsRoute(title: 'Settings', key: widget.key))
+                  Visibility(
+                    visible: changeVisibility7(),
+                    child: SizedBox(height: size.height * 0.02)
+                  ),
+                  Visibility(
+                    visible: changeVisibility7(),
+                    child: buildMenuItem(
+                      text: 'Settings',
+                      icon: Icons.settings,
+                      onClicked: () => context.router.push(SettingsRoute(title: 'Settings', key: widget.key))
+                    ),
                   ),
                   SizedBox(height: size.height * 0.02),
                   Row(

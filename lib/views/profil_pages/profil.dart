@@ -110,22 +110,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled1,
-                          value: isChecked1,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked1 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],
@@ -141,22 +127,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled2,
-                          value: isChecked2,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked2 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],
@@ -172,22 +144,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled3,
-                          value: isChecked3,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked3 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],
@@ -203,22 +161,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled4,
-                          value: isChecked4,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked4 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],
@@ -234,22 +178,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled5,
-                          value: isChecked5,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked5 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],
@@ -265,22 +195,8 @@ class _ProfilPageState extends State<ProfilPage>{
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: NeumorphicSwitch(
-                          style: const NeumorphicSwitchStyle(
-                            lightSource: LightSource.topLeft,
-                            trackDepth: 20,
-                            thumbShape: NeumorphicShape.concave,
-                            activeThumbColor: Colors.pinkAccent,
-                            inactiveThumbColor: Colors.blueGrey,
-                          ),
-                          duration: const Duration(milliseconds: 400),
-                          isEnabled: isEnabled6,
-                          value: isChecked6,
-                          onChanged:  (value) {
-                            setState(() {
-                              isChecked6 = value;
-                            });
-                          },
+                        child: const Text(
+                          'Voulez vous être volontaire ?',
                         ),
                       ),
                     ],

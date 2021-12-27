@@ -13,6 +13,7 @@ class Userbean {
         int? age,
         String? phone,
         String? since,
+        int? shareInfos,
         Townbean? town,
         List<Rolebean>? roles,
         List<Voluntarybean>? voluntary,}){
@@ -25,6 +26,7 @@ class Userbean {
         _age = age;
         _phone = phone;
         _since = since;
+        _shareInfos = shareInfos;
         _town = town;
         _roles = roles;
         _voluntary = voluntary;
@@ -40,6 +42,7 @@ class Userbean {
         _age = json['age'];
         _phone = json['phone'];
         _since = json['since'];
+        _shareInfos = json['shareInfos'];
         _town = json['town'] != null ? Townbean.fromJson(json['town']) : null;
         if (json['roles'] != null) {
             _roles = [];
@@ -63,6 +66,7 @@ class Userbean {
     int? _age;
     String? _phone;
     String? _since;
+    int? _shareInfos;
     Townbean? _town;
     List<Rolebean>? _roles;
     List<Voluntarybean>? _voluntary;
@@ -76,6 +80,7 @@ class Userbean {
     int? get age => _age;
     String? get phone => _phone;
     String? get since => _since;
+    int? get shareInfos => _shareInfos;
     Townbean? get town => _town;
     List<Rolebean>? get roles => _roles;
     List<Voluntarybean>? get voluntary => _voluntary;
@@ -91,6 +96,7 @@ class Userbean {
         map['age'] = _age;
         map['phone'] = _phone;
         map['since'] = _since;
+        map['shareInfos'] = _shareInfos;
         if (_town != null) {
             map['town'] = _town?.toJson();
         }
