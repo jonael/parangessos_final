@@ -1,7 +1,5 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:universal_platform/universal_platform.dart';
 import '../provider/router.dart';
@@ -27,15 +25,22 @@ class RegisterControllerState extends State<RegisterController> {
   late TextEditingController confPasswordController;
   late TextEditingController mailController;
   late TextEditingController confMailController;
+  late String errorToShow;
 
   registerFromApi(String pseudo, String password, String mail) {
     Api.register(pseudo, password, mail).then((retour){
       setState(() {
         if(retour == true) {
-          print(userLog!.pseudo);
           if(userLog!.pseudo == pseudo) {
             context.router.push(HomeRoute(title: 'Accueil', key: widget.key));
           }
+        } else {
+          errorToShow = errorMessage!.message!;
+          setState(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(errorToShow)),
+            );
+          });
         }
       });
     });
@@ -49,6 +54,7 @@ class RegisterControllerState extends State<RegisterController> {
     confPasswordController = TextEditingController();
     mailController = TextEditingController();
     confMailController = TextEditingController();
+    errorToShow = '';
   }
 
   @override
@@ -261,7 +267,7 @@ class RegisterControllerState extends State<RegisterController> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Connexion en cours')),
+                          const SnackBar(content: Text('Création de compte et connexion en cours')),
                         );
                         registerFromApi(pseudoController.text, passwordController.text, mailController.text);
                       }

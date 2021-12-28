@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:parangessos_final/models/messageerrorbean.dart';
 import 'package:universal_platform/universal_platform.dart';
-
 import '../models/profil/notificationbean.dart';
 import '../models/profil/user.dart';
 import '../utils/constants.dart';
@@ -25,19 +25,13 @@ class Api {
             "password": password
           }),
       );
-      print(response.body);
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        print(response);
         var test = jsonDecode(response.body);
-        print(test);
         userLog = Userbean.fromJson(test[0]);
-        print(userLog);
         return true;
       } else {
-        print(response.body);
-        print(response.statusCode);
-        errorLog = jsonDecode(response.body);
+        var rep = jsonDecode(response.body);
+        errorMessage = Messageerrorbean.fromJson(rep);
         return false;
       }
     } on Exception catch (e) {
@@ -50,9 +44,9 @@ class Api {
   static Future register(String pseudo, String password, String mail) async {
     String url = '';
     if(UniversalPlatform.isAndroid){
-      url = "http://10.0.2.2:3000/register";
+      url = "http://localhost/paranges-sos/api/register.php";
     }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost:3000/register";
+      url = "http://localhost/paranges-sos/api/register.php";
     }
     try {
       final response = await http.post(
@@ -60,21 +54,21 @@ class Api {
         headers: {
           "content-type": "application/json"
         },
-        body: {
+        body: jsonEncode({
           "pseudo": pseudo,
           "password": password,
-          "mail": mail},
+          "mail" : mail
+        }),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
         print(test);
         userLog = Userbean.fromJson(test[0]);
+        print(userLog);
         return true;
       } else {
-        print(response.body);
-        print(response.statusCode);
-        errorLog = jsonDecode(response.body[0]);
+        var rep = jsonDecode(response.body);
+        errorMessage = Messageerrorbean.fromJson(rep);
         return false;
       }
     } on Exception catch (e) {
@@ -103,9 +97,8 @@ class Api {
         notifications = List<Notificationbean>.from(test.map((model) => Notificationbean.fromJson(model)));
         return true;
       } else {
-        print(response.body);
-        print(response.statusCode);
-        errorLog = jsonDecode(response.body);
+        var rep = jsonDecode(response.body);
+        errorMessage = Messageerrorbean.fromJson(rep);
         return false;
       }
     } on Exception catch (e) {

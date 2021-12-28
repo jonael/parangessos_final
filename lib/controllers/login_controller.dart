@@ -1,9 +1,6 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:universal_platform/universal_platform.dart';
-
 import '../provider/router.dart';
 import '../utils/constants.dart';
 import 'api.dart';
@@ -24,15 +21,22 @@ class LoginControllerState extends State<LoginController> {
 
   late TextEditingController pseudoController;
   late TextEditingController passwordController;
+  late String errorToShow;
 
   loginFromApi(String pseudo, String password) {
     Api.login(pseudo, password).then((retour){
       setState(() {
         if(retour == true) {
-          print(userLog!.pseudo);
           if(userLog!.pseudo == pseudo) {
             context.router.push(HomeRoute(title: 'Accueil', key: widget.key));
           }
+        } else {
+          errorToShow = errorMessage!.message!;
+          setState(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(errorToShow)),
+            );
+          });
         }
       });
     });
@@ -43,6 +47,7 @@ class LoginControllerState extends State<LoginController> {
     super.initState();
     pseudoController = TextEditingController();
     passwordController = TextEditingController();
+    errorToShow = "";
   }
 
   @override

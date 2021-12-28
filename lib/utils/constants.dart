@@ -1,6 +1,8 @@
+import 'package:parangessos_final/models/messageerrorbean.dart';
+
 import '../models/profil/notificationbean.dart';
 import '../models/profil/user.dart';
 
 Userbean? userLog;
-String errorLog = "";
+Messageerrorbean? errorMessage;
 List<Notificationbean>? notifications;
