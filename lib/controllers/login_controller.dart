@@ -49,9 +49,9 @@ class LoginControllerState extends State<LoginController> {
   Widget build(BuildContext context) {
     double multiplicator;
     if (UniversalPlatform.isAndroid) {
-      multiplicator = 1.2;
+      multiplicator = 1.5;
     } else if(UniversalPlatform.isIOS){
-      multiplicator = 1.2;
+      multiplicator = 1.5;
     } else {
       multiplicator = 2;
     }
@@ -73,6 +73,7 @@ class LoginControllerState extends State<LoginController> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextFormField(
+                    onTap: () {},
                     controller: pseudoController,
                     keyboardType: TextInputType.text,
                     style: Theme.of(context).textTheme.bodyText1,
@@ -132,9 +133,12 @@ class LoginControllerState extends State<LoginController> {
                   child: NeumorphicButton(
                     margin: const EdgeInsets.all(10.0),
                     onPressed: () {
-                      String pseudo = pseudoController.text.toString();
-                      String password = passwordController.text.toString();
-                      loginFromApi(pseudo, password);
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Connexion en cours')),
+                        );
+                        loginFromApi(pseudoController.text, passwordController.text,);
+                      }
                     },
                     style: NeumorphicStyle(
                         shape: NeumorphicShape.concave,

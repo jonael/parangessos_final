@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:universal_platform/universal_platform.dart';
 
+import '../models/profil/notificationbean.dart';
 import '../models/profil/user.dart';
 import '../utils/constants.dart';
 
@@ -74,6 +75,37 @@ class Api {
         print(response.body);
         print(response.statusCode);
         errorLog = jsonDecode(response.body[0]);
+        return false;
+      }
+    } on Exception catch (e) {
+      print(e);
+      print(Exception);
+      print("Error occured");
+    }
+  }
+
+  static Future getNotifications() async {
+    String url = '';
+    if(UniversalPlatform.isAndroid){
+      url = "http://10.0.2.2/paranges-sos/api/getAllNotifications.php";
+    }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
+      url = "http://localhost/paranges-sos/api/getAllNotifications.php";
+    }
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          "content-type": "application/json"
+        },
+      );
+      if (response.statusCode == 200) {
+        var test = jsonDecode(response.body);
+        notifications = List<Notificationbean>.from(test.map((model) => Notificationbean.fromJson(model)));
+        return true;
+      } else {
+        print(response.body);
+        print(response.statusCode);
+        errorLog = jsonDecode(response.body);
         return false;
       }
     } on Exception catch (e) {

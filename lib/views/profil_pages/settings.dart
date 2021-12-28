@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:parangessos_final/controllers/settings_controller.dart';
 import 'package:universal_platform/universal_platform.dart';
-
 import '../../provider/navigation_drawer.dart';
-import '../../utils/constants.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key, required this.title}) : super(key: key);
@@ -17,18 +15,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage>{
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage>{
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: SettingsController(context: context, size: size,),
+                child: SettingsController(context: context),
               ),
             ),
           ),

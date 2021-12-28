@@ -1,4 +1,5 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -54,12 +55,14 @@ class RegisterControllerState extends State<RegisterController> {
   Widget build(BuildContext context) {
     double multiplicator;
     if (UniversalPlatform.isAndroid) {
-      multiplicator = 1.2;
+      multiplicator = 1.5;
     } else if(UniversalPlatform.isIOS){
-      multiplicator = 1.2;
+      multiplicator = 1.5;
     } else {
       multiplicator = 2;
     }
+    String pass = "";
+    String mail = "";
     return Form(
       key: _formKey,
       child: SizedBox(
@@ -127,15 +130,23 @@ class RegisterControllerState extends State<RegisterController> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Veuillez saisir votre mot de passe';
+                      } else if (value.isNotEmpty && value.length < 8) {
+                        return 'Votre mot de passe doit contenir au moins 8 caractères';
+                      } else {
+                        String erreur = passwordControl(value);
+                        if (erreur != ""){
+                          return erreur;
+                        } else {
+                          pass = value;
+                          return null;
+                        }
                       }
-                      return null;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
-                    controller: confPasswordController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     style: Theme.of(context).textTheme.bodyText1,
@@ -151,13 +162,25 @@ class RegisterControllerState extends State<RegisterController> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Theme.of(context).focusColor)
                       ),
-                      labelText: "Mot de passe",
+                      labelText: "Confirmation mot de passe",
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Veuillez saisir votre mot de passe';
+                        return 'Veuillez confirmer votre mot de passe';
+                      } else if (value.isNotEmpty && value.length < 8) {
+                        return 'Votre mot de passe doit contenir au moins 8 caractères';
+                      } else {
+                        String erreur = passwordControl(value);
+                        if (erreur != ""){
+                          return erreur;
+                        } else {
+                          if (value != pass){
+                            return "Les mots de passe doivent être identiques";
+                          } else {
+                            return null;
+                          }
+                        }
                       }
-                      return null;
                     },
                   ),
                 ),
@@ -165,8 +188,7 @@ class RegisterControllerState extends State<RegisterController> {
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
                     controller: mailController,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
+                    keyboardType: TextInputType.emailAddress,
                     style: Theme.of(context).textTheme.bodyText1,
                     cursorColor: Theme.of(context).accentColor,
                     decoration: InputDecoration(
@@ -180,22 +202,26 @@ class RegisterControllerState extends State<RegisterController> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Theme.of(context).focusColor)
                       ),
-                      labelText: "Mot de passe",
+                      labelText: "Mail",
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Veuillez saisir votre mot de passe';
+                        return 'Veuillez saisir votre mail';
+                      } else {
+                        if (!(EmailValidator.validate(value)) && value.isNotEmpty){
+                          return "Ceci n'est pas une adresse mail valide";
+                        } else {
+                          mail = value;
+                          return null;
+                        }
                       }
-                      return null;
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
-                    controller: confMailController,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
+                    keyboardType: TextInputType.emailAddress,
                     style: Theme.of(context).textTheme.bodyText1,
                     cursorColor: Theme.of(context).accentColor,
                     decoration: InputDecoration(
@@ -209,13 +235,22 @@ class RegisterControllerState extends State<RegisterController> {
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Theme.of(context).focusColor)
                       ),
-                      labelText: "Mot de passe",
+                      labelText: "Confirmation mail",
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Veuillez saisir votre mot de passe';
+                        return 'Veuillez confirmer votre mail';
+                      } else {
+                        if (!(EmailValidator.validate(value)) && value.isNotEmpty){
+                          return "Ceci n'est pas une adresse mail valide";
+                        } else {
+                          if (value != mail){
+                            return "Les mails doivent être identiques";
+                          } else {
+                            return null;
+                          }
+                        }
                       }
-                      return null;
                     },
                   ),
                 ),
@@ -224,10 +259,12 @@ class RegisterControllerState extends State<RegisterController> {
                   child: NeumorphicButton(
                     margin: const EdgeInsets.all(10.0),
                     onPressed: () {
-                      String pseudo = pseudoController.text.toString();
-                      String password = passwordController.text.toString();
-                      String mail = mailController.text.toString();
-                      registerFromApi(pseudo, password, mail);
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Connexion en cours')),
+                        );
+                        registerFromApi(pseudoController.text, passwordController.text, mailController.text);
+                      }
                     },
                     style: NeumorphicStyle(
                         shape: NeumorphicShape.concave,
@@ -249,5 +286,27 @@ class RegisterControllerState extends State<RegisterController> {
         ),
       ),
     );
+  }
+
+  String passwordControl(String value) {
+    String toReturn = "Erreur";
+    if (value.contains(RegExp(r'[A-Z]'))) {
+      if (value.contains(RegExp(r'[0-9]'))){
+        if (value.contains(RegExp(r'[a-z]'))){
+          if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
+            toReturn = "";
+          } else {
+            toReturn = "votre mot de passe doit contenir au moins un caractère spéciale";
+          }
+        } else {
+          toReturn = "Votre mot de passe doit contenir au moins une minuscule";
+        }
+      } else {
+        toReturn = "Votre mot de passe doit contenir au moins un chiffre";
+      }
+    } else {
+      toReturn = "Votre mot de passe doit contenir au moins une majuscule";
+    }
+    return toReturn;
   }
 }

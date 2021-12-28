@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(
                     onPressed: () => context.router.push(RegisterRoute(title: 'Créer un compte', key: widget.key)),
                     child: const Text(
-                      "J'ai déjà un compte",
+                      "Je n'ai pas de compte",
                       style: TextStyle(
                         color: Colors.red,
                         fontStyle: FontStyle.italic,
