@@ -9,16 +9,16 @@ import '../utils/constants.dart';
 class Api {
   static Future login(String pseudo, String password) async {
     String url = '';
-    if(UniversalPlatform.isAndroid){
-      url = "http://10.0.2.2/paranges-sos/api/login.php";
-    }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost/paranges-sos/api/login.php";
+    if(UniversalPlatform.isWeb){
+      url = "https://www.paranges-sos.com/api/login.php";
+    }else {
+      url = "http://www.paranges-sos.com/paranges-sos/api/login.php";
     }
     try {
       final response = await http.post(
           Uri.parse(url),
           headers: {
-            "content-type": "application/json"
+            "Accept": "application/json"
           },
           body: jsonEncode({
             "pseudo": pseudo,
@@ -27,6 +27,7 @@ class Api {
       );
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
+        print(test);
         userLog = Userbean.fromJson(test[0]);
         return true;
       } else {
@@ -43,16 +44,16 @@ class Api {
 
   static Future register(String pseudo, String password, String mail) async {
     String url = '';
-    if(UniversalPlatform.isAndroid){
-      url = "http://localhost/paranges-sos/api/register.php";
-    }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost/paranges-sos/api/register.php";
+    if(UniversalPlatform.isWeb){
+      url = "https://localhost/api/register.php";
+    }else {
+      url = "https://www.paranges-sos.com/api/register.php";
     }
     try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          "content-type": "application/json"
+          "Accept": "application/json"
         },
         body: jsonEncode({
           "pseudo": pseudo,
@@ -80,16 +81,16 @@ class Api {
 
   static Future getNotifications() async {
     String url = '';
-    if(UniversalPlatform.isAndroid){
-      url = "http://10.0.2.2/paranges-sos/api/getAllNotifications.php";
-    }else if (UniversalPlatform.isWeb || UniversalPlatform.isIOS){
-      url = "http://localhost/paranges-sos/api/getAllNotifications.php";
+    if(UniversalPlatform.isWeb){
+      url = "https://localhost/api/getAllNotifications.php";
+    }else {
+      url = "https://www.paranges-sos.com/api/getAllNotifications.php";
     }
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          "content-type": "application/json"
+          "Accept": "application/json"
         },
       );
       if (response.statusCode == 200) {
