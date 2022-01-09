@@ -1,5 +1,8 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:parangessos_final/provider/router.dart';
 import '../utils/constants.dart';
+import 'api.dart';
 
 class SettingsController extends StatefulWidget {
   const SettingsController({Key? key, required this.context,}) : super(key: key);
@@ -20,7 +23,6 @@ class SettingsControllerState extends State<SettingsController> {
   late bool sms;
   late bool mail;
   late bool notif;
-  //late List<Notificationbean> notifs;
   late String textVoluntary;
   late String textMail;
   late String textSms;
@@ -28,44 +30,66 @@ class SettingsControllerState extends State<SettingsController> {
   late String textCall;
   late String textShare;
 
+  updateStatutNotif(int smsStatut, int mailStatut, int callStatut, int notifStatut, int idUser) {
+    Api.updateStatutNotification(smsStatut, mailStatut, callStatut, notifStatut, idUser).then((retour){
+      if (retour == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage!.message!)),
+        );
+        context.router.push(HomeRoute(title: 'Accueil', key: widget.key));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage!.message!)),
+        );
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    //Api.getNotifications();
-    //notifs = notifications!;
+    Api.getNotifications();
     for(var i = 0; i<userLog!.roles!.length; i++){
       if (userLog!.roles![i].idRole == 4){
         voluntary = true;
         visible = true;
         textVoluntary = 'Ne plus être volontaire';
         for(var j = 0; j<userLog!.voluntary!.length; j++){
-          if(userLog!.voluntary![j].notificationName == 'sms'){
-            sms = true;
-            textSms = 'Désactiver notifications par sms';
-          } else {
-            sms = false;
-            textSms = 'Activer notifications par sms';
+          if(userLog!.voluntary![j].notificationName == 'sms') {
+            if(userLog!.voluntary![j].statutNotification == 1) {
+              sms = true;
+              textSms = 'Désactiver notifications par sms';
+            } else {
+              sms = false;
+              textSms = 'Activer notifications par sms';
+            }
           }
-          if(userLog!.voluntary![j].notificationName == 'mail'){
-            mail = true;
-            textMail = 'Désactiver notifications par e-mail';
-          } else {
-            mail = false;
-            textMail = 'Activer notifications par e-mail';
+          if(userLog!.voluntary![j].notificationName == 'mail') {
+            if(userLog!.voluntary![j].statutNotification == 1){
+              mail = true;
+              textMail = 'Désactiver notifications par e-mail';
+            } else {
+              mail = false;
+              textMail = 'Activer notifications par e-mail';
+            }
           }
           if(userLog!.voluntary![j].notificationName == 'call'){
-            call = true;
-            textCall = 'Désactiver notifications par appel';
-          } else {
-            call = false;
-            textCall = 'Activer notifications par appel';
+            if(userLog!.voluntary![j].statutNotification == 1){
+              call = true;
+              textCall = 'Désactiver notifications par appel';
+            } else {
+              call = false;
+              textCall = 'Activer notifications par appel';
+            }
           }
-          if(userLog!.voluntary![j].notificationName == 'notification'){
-            notif = true;
-            textNotif = 'Désactiver notifications sonores, lumineuses et par icone';
-          } else {
-            notif = false;
-            textNotif = 'Activer notifications sonores, lumineuses et par icone';
+          if(userLog!.voluntary![j].notificationName == 'notification') {
+            if(userLog!.voluntary![j].statutNotification == 1){
+              notif = true;
+              textNotif = 'Désactiver notifications sonores, lumineuses et par icone';
+            } else {
+              notif = false;
+              textNotif = 'Activer notifications sonores, lumineuses et par icone';
+            }
           }
         }
       } else {
@@ -110,6 +134,14 @@ class SettingsControllerState extends State<SettingsController> {
                       visible = !visible;
                       if (textVoluntary == 'Ne plus être volontaire') {
                         textVoluntary = 'Souhaitez vous devenir volontaire ?';
+                        sms = false;
+                        mail = false;
+                        call = false;
+                        notif = false;
+                        textSms = 'Activer notifications par sms';
+                        textMail = 'Activer notifications par e-mail';
+                        textCall = 'Activer notifications par appel';
+                        textNotif = 'Activer notifications sonores, lumineuses et par icone';
                       } else {
                         textVoluntary = 'Ne plus être volontaire';
                       }
@@ -303,36 +335,32 @@ class SettingsControllerState extends State<SettingsController> {
               int mailStatut;
               int callStatut;
               int notifStatut;
-              if (voluntary == true){
-                if (sms == true){
-                  smsStatut = 1;
-                } else {
-                  smsStatut = 0;
-                }
-                if (mail == true){
-                  mailStatut = 1;
-                } else {
-                  mailStatut = 0;
-                }
-                if (call == true){
-                  callStatut = 1;
-                } else {
-                  callStatut = 0;
-                }
-                if (notif == true){
-                  notifStatut = 1;
-                } else {
-                  notifStatut = 0;
-                }
+              if (sms == true){
+                smsStatut = 1;
               } else {
-                //todo
+                smsStatut = 0;
               }
-
-              if (share == true) {
-                //todo
+              if (mail == true){
+                mailStatut = 1;
               } else {
-                //todo
+                mailStatut = 0;
               }
+              if (call == true){
+                callStatut = 1;
+              } else {
+                callStatut = 0;
+              }
+              if (notif == true){
+                notifStatut = 1;
+              } else {
+                notifStatut = 0;
+              }
+              updateStatutNotif(smsStatut, mailStatut, callStatut, notifStatut, userLog!.idUser!);
+              // if (share == true) {
+              //   //todo
+              // } else {
+              //   //todo
+              // }
             },
             style: NeumorphicStyle(
                 shape: NeumorphicShape.concave,

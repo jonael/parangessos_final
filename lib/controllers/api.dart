@@ -10,9 +10,9 @@ class Api {
   static Future login(String pseudo, String password) async {
     String url = '';
     if(UniversalPlatform.isWeb){
-      url = "https://www.paranges-sos.com/api/login.php";
+      url = "http://localhost/paranges-sos/api/login.php";
     }else {
-      url = "http://www.paranges-sos.com/paranges-sos/api/login.php";
+      url = "http://localhost/paranges-sos/paranges-sos/api/login.php";
     }
     try {
       final response = await http.post(
@@ -28,7 +28,7 @@ class Api {
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
         print(test);
-        userLog = Userbean.fromJson(test[0]);
+        userLog = Userbean.fromJson(test);
         return true;
       } else {
         var rep = jsonDecode(response.body);
@@ -45,9 +45,9 @@ class Api {
   static Future register(String pseudo, String password, String mail) async {
     String url = '';
     if(UniversalPlatform.isWeb){
-      url = "https://localhost/api/register.php";
+      url = "http://localhost/paranges-sos/api/register.php";
     }else {
-      url = "https://www.paranges-sos.com/api/register.php";
+      url = "http://localhost/paranges-sos/api/register.php";
     }
     try {
       final response = await http.post(
@@ -64,7 +64,7 @@ class Api {
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
         print(test);
-        userLog = Userbean.fromJson(test[0]);
+        userLog = Userbean.fromJson(test);
         print(userLog);
         return true;
       } else {
@@ -82,9 +82,9 @@ class Api {
   static Future getNotifications() async {
     String url = '';
     if(UniversalPlatform.isWeb){
-      url = "https://localhost/api/getAllNotifications.php";
+      url = "http://localhost/paranges-sos/api/getAllNotifications.php";
     }else {
-      url = "https://www.paranges-sos.com/api/getAllNotifications.php";
+      url = "http://localhost/paranges-sos/api/getAllNotifications.php";
     }
     try {
       final response = await http.get(
@@ -96,6 +96,43 @@ class Api {
       if (response.statusCode == 200) {
         var test = jsonDecode(response.body);
         notifications = List<Notificationbean>.from(test.map((model) => Notificationbean.fromJson(model)));
+        return true;
+      } else {
+        var rep = jsonDecode(response.body);
+        errorMessage = Messageerrorbean.fromJson(rep);
+        return false;
+      }
+    } on Exception catch (e) {
+      print(e);
+      print(Exception);
+      print("Error occured");
+    }
+  }
+
+  static Future updateStatutNotification(int sms, int mail, int call, int notif, int idUser) async {
+    String url = '';
+    if(UniversalPlatform.isWeb){
+      url = "http://localhost/paranges-sos/api/updateNotifications.php";
+    }else {
+      url = "http://localhost/paranges-sos/api/updateNotifications.php";
+    }
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Accept": "application/json"
+        },
+        body: jsonEncode({
+          "sms": sms,
+          "mail": mail,
+          "call" : call,
+          "notif" : notif,
+          "idUser" : idUser
+        }),
+      );
+      if (response.statusCode == 200) {
+        var test = jsonDecode(response.body);
+        errorMessage = Messageerrorbean.fromJson(test);
         return true;
       } else {
         var rep = jsonDecode(response.body);

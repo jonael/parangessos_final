@@ -48,7 +48,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
       } else {
         pseudo = 'visiteur';
       }
-      if (user!.photoUrl != null || user!.photoUrl!.isNotEmpty) {
+      if (user!.photoUrl != null) {
         urlImage = user!.photoUrl!;
       } else {
         urlImage = "assets/images/logo_ailes_1080.png";
@@ -63,14 +63,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
               size: size,
               urlImage: urlImage,
               pseudo: pseudo!,
-              onClicked: () => context.router.push(
-                  ProfilRoute(
-                      title: 'Mon profil',
-                      key: widget.key,
-                      urlImage: urlImage,
-                      pseudo: pseudo!,
-                  ),
-              ),
             ),
             Container(
               padding:  padding,
@@ -227,19 +219,24 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
     required Size size,
     required String urlImage,
     required String pseudo,
-    required ui.VoidCallback onClicked,
   }) => InkWell(
-    onTap: onClicked,
     child: Container(
       padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
       child: Column(
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).backgroundColor,
-                radius: 35,
-                foregroundImage: NetworkImage(urlImage),
+              GestureDetector(
+                onTap: () {
+                  context.router.push(
+                    const ProfilRoute(title: 'Profil')
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  radius: 35,
+                  foregroundImage: NetworkImage(urlImage),
+                ),
               ),
               SizedBox(width: size.width * 0.01,),
               Text(

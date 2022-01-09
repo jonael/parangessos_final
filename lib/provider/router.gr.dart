@@ -144,9 +144,7 @@ class RegisterRoute extends PageRouteInfo {
 class ProfilRoute extends PageRouteInfo {
   const ProfilRoute(
       {Key? key,
-        required String title,
-        required String pseudo,
-        required String urlImage})
+        required String title,})
       : super(ProfilRoute.name,
     path: '/profil-page',);
 
