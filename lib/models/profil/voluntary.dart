@@ -21,6 +21,8 @@ class Voluntarybean {
   String? get notificationName => _notificationName;
   int? get statutNotification => _statutNotification;
 
+  set statutNotification(statutNotification) => _statutNotification = statutNotification;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['idNotification'] = _idNotification;

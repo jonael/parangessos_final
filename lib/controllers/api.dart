@@ -109,7 +109,7 @@ class Api {
     }
   }
 
-  static Future updateStatutNotification(int sms, int mail, int call, int notif, int idUser) async {
+  static Future updateStatutNotification(int sms, int mail, int call, int notif, int idUser, int share) async {
     String url = '';
     if(UniversalPlatform.isWeb){
       url = "http://localhost/paranges-sos/api/updateNotifications.php";
@@ -127,7 +127,8 @@ class Api {
           "mail": mail,
           "call" : call,
           "notif" : notif,
-          "idUser" : idUser
+          "idUser" : idUser,
+          "share" : share
         }),
       );
       if (response.statusCode == 200) {

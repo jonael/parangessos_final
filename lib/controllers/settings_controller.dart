@@ -30,8 +30,8 @@ class SettingsControllerState extends State<SettingsController> {
   late String textCall;
   late String textShare;
 
-  updateStatutNotif(int smsStatut, int mailStatut, int callStatut, int notifStatut, int idUser) {
-    Api.updateStatutNotification(smsStatut, mailStatut, callStatut, notifStatut, idUser).then((retour){
+  updateStatutNotif(int smsStatut, int mailStatut, int callStatut, int notifStatut, int idUser, int infosShare) {
+    Api.updateStatutNotification(smsStatut, mailStatut, callStatut, notifStatut, idUser, infosShare).then((retour){
       if (retour == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage!.message!)),
@@ -134,6 +134,9 @@ class SettingsControllerState extends State<SettingsController> {
                       visible = !visible;
                       if (textVoluntary == 'Ne plus être volontaire') {
                         textVoluntary = 'Souhaitez vous devenir volontaire ?';
+                        for (var element in userLog!.voluntary!) {
+                          element.statutNotification = 0;
+                        }
                         sms = false;
                         mail = false;
                         call = false;
@@ -335,6 +338,7 @@ class SettingsControllerState extends State<SettingsController> {
               int mailStatut;
               int callStatut;
               int notifStatut;
+              int infosShare;
               if (sms == true){
                 smsStatut = 1;
               } else {
@@ -355,12 +359,27 @@ class SettingsControllerState extends State<SettingsController> {
               } else {
                 notifStatut = 0;
               }
-              updateStatutNotif(smsStatut, mailStatut, callStatut, notifStatut, userLog!.idUser!);
-              // if (share == true) {
-              //   //todo
-              // } else {
-              //   //todo
-              // }
+              if (share == true){
+                infosShare = 1;
+              } else {
+                infosShare = 0;
+              }
+              userLog!.shareInfos = infosShare;
+              for (var element in userLog!.voluntary!) {
+                if (element.notificationName == 'sms') {
+                  element.statutNotification = smsStatut;
+                }
+                if (element.notificationName == 'mail') {
+                  element.statutNotification = mailStatut;
+                }
+                if (element.notificationName == 'call') {
+                  element.statutNotification = callStatut;
+                }
+                if (element.notificationName == 'notif') {
+                  element.statutNotification = notifStatut;
+                }
+              }
+              updateStatutNotif(smsStatut, mailStatut, callStatut, notifStatut, userLog!.idUser!, infosShare);
             },
             style: NeumorphicStyle(
                 shape: NeumorphicShape.concave,

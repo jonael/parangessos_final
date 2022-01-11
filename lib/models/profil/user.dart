@@ -85,6 +85,8 @@ class Userbean {
     List<Rolebean>? get roles => _roles;
     List<Voluntarybean>? get voluntary => _voluntary;
 
+    set shareInfos(shareInfos) => _shareInfos = shareInfos;
+
     Map<String, dynamic> toJson() {
         final map = <String, dynamic>{};
         map['idUser'] = _idUser;

@@ -27,7 +27,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   bool isChecked = false;
   late Image image;
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -63,6 +62,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
               size: size,
               urlImage: urlImage,
               pseudo: pseudo!,
+              key: widget.key,
             ),
             Container(
               padding:  padding,
@@ -218,7 +218,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
   Widget buildHeader({
     required Size size,
     required String urlImage,
-    required String pseudo,
+    required String pseudo, Key? key,
   }) => InkWell(
     child: Container(
       padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
@@ -228,9 +228,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget>{
             children: [
               GestureDetector(
                 onTap: () {
-                  context.router.push(
-                    const ProfilRoute(title: 'Profil')
-                  );
+                  context.router.push(ProfilRoute(title: 'Mon profil', key: widget.key));
                 },
                 child: CircleAvatar(
                   backgroundColor: Theme.of(context).backgroundColor,

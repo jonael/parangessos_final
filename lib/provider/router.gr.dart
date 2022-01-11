@@ -33,8 +33,7 @@ class _$AppRouter extends RootStackRouter {
     ProfilRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ProfilPage(
-            title: 'Profil', urlImage: userLog!.photoUrl!, pseudo: userLog!.pseudo!,));
+          child: const ProfilPage(title: 'Mon profil',));
     },
     SettingsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
